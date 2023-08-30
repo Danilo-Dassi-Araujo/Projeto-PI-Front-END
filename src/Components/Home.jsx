@@ -3,11 +3,14 @@ import "../../src/App.css";
 import axios from "axios";
 import EditModal from "../Components/EditModal";
 import CreateModal from "../Components/CreateModal";
+import ErrorModal from "../Components/ErrorModal";
 
 function Home() {
   // Supondo que userData seja uma matriz de objetos
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [groupIndicator, setGroupIndicator] = useState("ADMIN");
   const [name, setName] = useState("");
   const [userData, setUserData] = useState(null);
@@ -49,7 +52,7 @@ function Home() {
     setEditFormData(user);
     setIsModalOpen(true);
   };
-  
+
   const openCreateForm = () => {
     setCreateFormData();
     setIsModalCreateOpen(true);
@@ -80,6 +83,8 @@ function Home() {
       })
       .catch((error) => {
         console.error("Erro ao editar o usuário:", error);
+        setErrorMessage(error.response.data.message);
+        setIsErrorModalOpen(true);
       });
   };
 
@@ -106,7 +111,12 @@ function Home() {
         setUserChanges(userChanges + 1);
       })
       .catch((error) => {
-        console.error("Erro ao cadastrar o usuário:", error.response.data.message);
+        console.error(
+          "Erro ao cadastrar o usuário:",
+          errorMessage
+        );
+        setErrorMessage(error.response.data.message);
+        setIsErrorModalOpen(true);
       });
   };
 
@@ -118,20 +128,19 @@ function Home() {
     <div className="app">
       <div className="filterDiv">
         <div>
-        <input
-          type="text"
-          placeholder="Filtrar por nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button onClick={handleListUsersClick} className="buttonListing">
-          Filtrar
+          <input
+            type="text"
+            placeholder="Filtrar por nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button onClick={handleListUsersClick} className="buttonListing">
+            Filtrar
+          </button>
+        </div>
+        <button className="btnEdit" onClick={() => openCreateForm()}>
+          Cadastrar
         </button>
-          </div>
-          <button className="btnEdit" onClick={() => openCreateForm()}>
-                  Cadastrar
-                </button>
-          
       </div>
       {userData && (
         <table className="table">
@@ -178,13 +187,21 @@ function Home() {
         />
       )}
       {isModalCreateOpen && (
-          <CreateModal
+        <CreateModal
           createFormData={createFormData}
           setCreateFormData={setCreateFormData}
           onClose={() => setIsModalCreateOpen(false)}
           onFormSubmit={handleCreateFormSubmit} // Passando a função de envio
         />
-          )}
+      )}
+
+      <div>
+        <ErrorModal
+          isOpen={isErrorModalOpen}
+          errorMessage={errorMessage}
+          onRequestClose={() => setIsErrorModalOpen(false)}
+        />
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 function EditModal({ setEditFormData, editFormData, onClose, onFormSubmit }) {
 
   return (
-    <form onSubmit={(e) => {e.preventDefault() 
+    <form em onSubmit={(e) => {e.preventDefault() 
     onFormSubmit()}}>
 
     
@@ -22,6 +22,7 @@ function EditModal({ setEditFormData, editFormData, onClose, onFormSubmit }) {
   <label>Nome:</label>
   <input
     type="text"
+    value={editFormData.name}
     onChange={(e)=>{setEditFormData((prev) => ({...prev, name: e.target.value}))} }
   />
 </div>
