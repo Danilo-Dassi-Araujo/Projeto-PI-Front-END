@@ -56,8 +56,8 @@ input::-webkit-input-placeholder{
 }
 
 button {
-  width: 210px;
-  height: 54px;
+  width: 190px;
+  height: 46px;
   margin-top: 20px;
   background-color: #D82148;
   padding: 10px 20px;
@@ -69,16 +69,18 @@ button {
 }
 
 .button-green{
+  margin-top: 0 !important;
   background-color: green;
   border: 1px solid green;
 }
 .button-red{
+  margin-top: 0 !important;
   background-color: #D82148;
   border: 1px solid #D82148;
 }
 
 button:hover {
-  background-color: #000;
+  background-color: transparent;
   color: #fff;
 }
 .user-card{
@@ -95,9 +97,6 @@ table, th, td {
   padding: 10px 20px;
 }
 
-.buttonListing{
-  margin-bottom: 30px !important;
-}
 
 .table{
   padding: 30px;
@@ -119,13 +118,34 @@ table, th, td {
   align-items: center;
 }
 
+label{
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+select {
+  margin-left: 10px;
+  width: 150px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #1E1E1E;
+  color: #fff;
+}
 .modal-content {
-  background-color: white;
+  background-color: #1E1E1E;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+.modal-content h2{
+  text-align: center;
+  color: #fff;
+}
 
+.buttons-form {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* Estilos gerais do formulário */
 .form-field {
@@ -154,4 +174,28 @@ table, th, td {
 
 .form-field button:last-child {
   background-color: #dc3545; /* Cor vermelha */
+}
+
+.filterDiv{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.filterDiv button{
+    margin-top: 0px;
+}
+
+.filterDiv input{
+  margin-right: 10px;
+  max-height: 49px;
+  max-width: 388px;
+}
+
+.btnEdit{
+  margin-top: 0 !important;
+}
+.form {
+background: #1E1E1E;
 }

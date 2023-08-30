@@ -1,6 +1,6 @@
 import React from 'react';
 
-function EditModal({ setEditFormData, editFormData, onClose, onFormSubmit }) {
+function CreateModal({ setCreateFormData, createFormData, onClose, onFormSubmit }) {
 
   return (
     <form onSubmit={(e) => {e.preventDefault() 
@@ -9,58 +9,53 @@ function EditModal({ setEditFormData, editFormData, onClose, onFormSubmit }) {
     
     <div className="modal">
       <div className="modal-content">
-        <h2>Editar Usuário</h2>
+        <h2>Cadastrar Usuário</h2>
         <div className="form-field">
           <label>Email:</label>
           <input
             type="text"
-            value={editFormData.email}
-            disabled // Torna o campo somente leitura
+            onChange={(e)=>{setCreateFormData((prev) => ({...prev, email: e.target.value}))} }
           />
         </div>
         <div className="form-field">
   <label>Nome:</label>
   <input
     type="text"
-    onChange={(e)=>{setEditFormData((prev) => ({...prev, name: e.target.value}))} }
+    onChange={(e)=>{setCreateFormData((prev) => ({...prev, name: e.target.value}))} }
   />
 </div>
         <div className="form-field">
           <label>Senha:</label>
           <input
             type="password"
-            value={editFormData.password}
-            onChange={(e)=>{setEditFormData((prev) => ({...prev, password: e.target.value}))} }
+            onChange={(e)=>{setCreateFormData((prev) => ({...prev, password: e.target.value}))} }
           />
         </div>
         <div className="form-field">
           <label>Confirmar Senha:</label>
           <input
             type="password"
-            value={editFormData.passwordConfirmation}
-            onChange={(e)=>{setEditFormData((prev) => ({...prev, passwordConfirmation: e.target.value}))} }
+            onChange={(e)=>{setCreateFormData((prev) => ({...prev, passwordConfirmation: e.target.value}))} }
           />
         </div>
         <div className="form-field">
           <label>CPF:</label>
           <input
             type="text"
-            value={editFormData.cpf}
-            disabled // Torna o campo somente leitura
+            onChange={(e)=>{setCreateFormData((prev) => ({...prev, cpf: e.target.value}))} }
           />
         </div>
         <div className="form-field">
           <label>Grupo:</label>
           <select
-            value={editFormData.group}
-            onChange={(e)=>{setEditFormData((prev) => ({...prev, group: e.target.value}))}}
+            onChange={(e)=>{setCreateFormData((prev) => ({...prev, group: e.target.value}))}}
           >
             <option value="ESTOQUISTA">ESTOQUISTA</option>
             <option value="ADMIN">ADMIN</option>
           </select>
         </div>
         <div className="buttons-form">
-        <button type='submit'>Confirmar</button>
+        <button type='submit'>Cadastrar</button>
         <button onClick={onClose}>Cancelar</button>
         </div>
       </div>
@@ -69,4 +64,4 @@ function EditModal({ setEditFormData, editFormData, onClose, onFormSubmit }) {
   );
 }
 
-export default EditModal;
+export default CreateModal;
