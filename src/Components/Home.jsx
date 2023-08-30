@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../src/App.css';
 import axios from 'axios';
+import EditModal from '../Components/EditModal';
 
 function Home() {
     // Supondo que userData seja uma matriz de objetos
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [groupIndicator, setGroupIndicator] = useState('ADMIN');
     const [name, setName] = useState('');
     const [userData, setUserData] = useState(null);
@@ -13,6 +15,8 @@ function Home() {
 
   const handleListUsersClick = () => {
     const url = `http://localhost:8080/home/listingUser?groupIndicator=${groupIndicator}&name=${name}`;
+
+
 
     axios.get(url)
       .then(response => {
@@ -39,24 +43,39 @@ function Home() {
 };
 
 const openEditForm = (user) => {
-  setEditFormData(user);
-  setIsEditing(true);
-};
+    setEditFormData(user);
+    setIsModalOpen(true);
+  };
 
 // Função para lidar com a submissão do formulário de edição
 const handleEditFormSubmit = () => {
-  const editUserUrl = `http://localhost:8080/edit/user?login=danariano83@gmail.com`;
 
-  axios.put(editUserUrl, editFormData)
+    const editUserUrl = `http://localhost:8080/edit/user?login=danariano83@gmail.com`;
+  
+    
+
+    // Crie um objeto com os dados do formulário
+    const formData = {
+      email: editFormData.email,
+      name: editFormData.name,
+      password: editFormData.password,
+      passwordConfirmation: editFormData.passwordConfirmation,
+      cpf: editFormData.cpf,
+      group: editFormData.group || "ESTOQUISTA",
+    };
+    
+    console.log(formData)
+
+    axios.put(editUserUrl, {...formData}) // Use axios.post para enviar os dados no corpo
       .then(response => {
-          console.log('Usuário editado com sucesso:', response.data);
-          setIsEditing(false); // Feche o formulário de edição após a submissão
-          setUserChanges(userChanges + 1);
+        console.log('Usuário editado com sucesso:', response.data);
+        setIsModalOpen(false); // Feche o modal após a submissão
+        setUserChanges(userChanges + 1);
       })
       .catch(error => {
-          console.error('Erro ao editar usuário:', error);
+        console.error('Erro ao editar usuário:', error);
       });
-};
+  };
 
 useEffect(() => {
   // Quando userChanges mudar, chame handleListUsersClick
@@ -65,7 +84,13 @@ useEffect(() => {
     return (
     
         <div className="app">
-            <button onClick={handleListUsersClick} className='buttonListing'>Listar Usuários</button>
+            <input
+                type="text"
+                placeholder='Filtrar por nome'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+/>
+            <button onClick={handleListUsersClick} className='buttonListing'>Filtrar</button>
             {userData && (
             <table className="table">
                 <tr className="user-card">
@@ -85,66 +110,20 @@ useEffect(() => {
                     <td> {user.cpf}</td>
                     <td> {user.groupIndicator}</td>
                     <td> {user.isActive ? 'ATIVO' : 'INATIVO'}</td>
-                    <td><button onClick={() => handleEditUserClick(user.email)}>{user.isActive ? "Desabilitar" : "Habilitar"}</button></td>
+                    <td><button className={!user.isActive ? 'button-green' : 'button-red' } onClick={() => handleEditUserClick(user.email)}>{user.isActive ? "Desabilitar" : "Habilitar"}</button></td>
                     <button onClick={() => openEditForm(user)}>Editar</button>
                 </tr>
             ))}
             </table>
             )}
-            {isEditing && (
-                <div className="edit-form">
-                    <h2>Editar Usuário</h2>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="text"
-                            value={editFormData.email}
-                            onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label>Nome:</label>
-                        <input
-                            type="text"
-                            value={editFormData.name}
-                            onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label>Senha:</label>
-                        <input
-                            type="password"
-                            value={editFormData.password}
-                            onChange={(e) => setEditFormData({ ...editFormData, password: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label>Confirmar Senha:</label>
-                        <input
-                            type="password"
-                            value={editFormData.passwordConfirmation}
-                            onChange={(e) => setEditFormData({ ...editFormData, passwordConfirmation: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label>CPF:</label>
-                        <input
-                            type="text"
-                            value={editFormData.cpf}
-                            onChange={(e) => setEditFormData({ ...editFormData, cpf: e.target.value })}
-                        />
-                    </div>
-                    <div>
-                        <label>Grupo:</label>
-                        <input
-                            type="text"
-                            value={editFormData.group}
-                            onChange={(e) => setEditFormData({ ...editFormData, group: e.target.value })}
-                        />
-                    </div>
-                    <button onClick={handleEditFormSubmit}>Confirmar Edição</button>
-                </div>
-            )}
+            {isModalOpen && (
+  <EditModal
+    editFormData={editFormData}
+    setEditFormData={setEditFormData}
+    onClose={() => setIsModalOpen(false)}
+    onFormSubmit={handleEditFormSubmit} // Passando a função de envio
+  />
+)}
         </div>
     );
 }

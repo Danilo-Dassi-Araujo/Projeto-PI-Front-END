@@ -7,9 +7,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        
         <Route path="/home" element={<Home />} />
         {/* Outras rotas aqui, se necessário */}
+        <Route path="*" element={<Login />} />
       </Routes>
     </Router>
   );

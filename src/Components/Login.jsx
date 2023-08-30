@@ -27,17 +27,18 @@ import axios from 'axios';
   
     return (
       <div className="app">
-        <h1>Login</h1>
+        <div className='box-input-login'>
+        <h1>LOGIN</h1>
         <div className="input">
           {/* Input para o campo de login */}
           <input
-            placeholder='login'
+            placeholder='Login'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           {/* Input para o campo de senha */}
           <input
-            placeholder='password'
+            placeholder='Password'
             type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -45,6 +46,7 @@ import axios from 'axios';
         </div>
         {/* Botão "Entrar!" com evento de clique */}
         <button onClick={handleLoginClick}>Entrar!</button>
+        </div>
       </div>
     );
   }
