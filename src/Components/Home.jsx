@@ -138,9 +138,11 @@ function Home() {
             Filtrar
           </button>
         </div>
-        <button className="btnEdit" onClick={() => openCreateForm()}>
+        {groupIndicator == "ADMIN" &&(
+          <button className="btnEdit" onClick={() => openCreateForm()}>
           Cadastrar
         </button>
+        )}
       </div>
       {userData && (
         <table className="table">
