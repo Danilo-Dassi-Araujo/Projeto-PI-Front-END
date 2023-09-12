@@ -7,65 +7,137 @@
 }
 
 .app {
+  width: 100vw;
+  height: 100vh;
+  background: #1E1E1E;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #1E1E1E;
 }
 
-.box-input-login .input{
-  gap: 25px
+.left-login{
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left-login img {
+  width: 35vw;
+}
+
+.right-login{
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .box-input-login {
+  width: 60%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-around;
-  min-width: 494px;
-  min-height: 460px;
-  background-color: #242424 !important;
-  border-radius: 40px;
+  flex-direction: column;
+  padding: 30px 30px;
+  background: #242424;
+  border-radius: 20px;
+  box-shadow: 0px 10px 40px #00000056;
+}
+
+.box-input-login h1 {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .input {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.input input {
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  background: #908F8F;
+  font-size: 12pt;
+  box-shadow: 0px 10px 40px #00000056;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input label {
+  color: #908F8F;
+  margin-bottom: 10px;
 }
 
 h1 {
   color: #D82148;
 }
 input {
-  background-color: #908F8F;
-  min-height: 49px;
-  min-width: 388px;
+  width: 100%;
+  background: #908F8F;
   color: #000;
   border: none;
   padding: 20px;
   border-radius: 40px;
+  box-shadow: 0px 10px 40px #00000056;
+  outline: none;
+  box-sizing: border-box;
 }
 input::-webkit-input-placeholder{
   color: #585656;
-
-  padding-left: 20px;
 }
 
+@media only screen and (max-width: 950px) {
+  .box-input-login{
+    width: 85%;
+  }
+  
+}
+
+@media only screen and (max-width: 950px) {
+  .app{
+    flex-direction: column;
+  }
+  .left-login h1 {
+    display: none;
+  }
+
+  .left-login{
+    width: 100%;
+    height: auto;
+  }
+
+  .right-login{
+    width: 100%;
+    height: auto;
+  }
+}
+
+
 button {
-  width: 190px;
-  height: 46px;
-  margin-top: 20px;
-  background-color: #D82148;
-  padding: 10px 20px;
-  border: 1px solid #D82148;
-  border-radius: 25px;
+  width: 100%;
+  padding: 16px 0px;
+  margin: 25px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #242424;
+  background: #D82148;
   cursor: pointer;
-  font-weight: 700;
-  font-size: 20px;
+  box-shadow: 0px 10px 40px -12px #d821494f;
+  
 }
 
 .button-green{
