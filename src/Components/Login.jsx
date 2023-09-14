@@ -45,7 +45,7 @@ import axios from 'axios';
           />
         </div>
         {/* Botão "Entrar!" com evento de clique */}
-        <button onClick={handleLoginClick}>Entrar!</button>
+        <button onClick={handleLoginClick}>Entrar</button>
         </div>
       </div>
     );

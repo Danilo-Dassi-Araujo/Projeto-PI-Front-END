@@ -6,7 +6,7 @@ import CreateModal from "../Components/CreateModal";
 import ErrorModal from "../Components/ErrorModal";
 
 function Home() {
-  // Supondo que userData seja uma matriz de objetos
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -16,8 +16,8 @@ function Home() {
   const [userData, setUserData] = useState(null);
   const [userChanges, setUserChanges] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [editFormData, setEditFormData] = useState({}); // Estado para armazenar os valores dos campos de edição
-  const [createFormData, setCreateFormData] = useState({}); // Estado para armazenar os valores dos campos de edição
+  const [editFormData, setEditFormData] = useState({});
+  const [createFormData, setCreateFormData] = useState({}); 
 
   const handleListUsersClick = () => {
     const url = `http://localhost:8080/home/listingUser?groupIndicator=${groupIndicator}&name=${name}`;
@@ -121,7 +121,6 @@ function Home() {
   };
 
   useEffect(() => {
-    // Quando userChanges mudar, chame handleListUsersClick
     handleListUsersClick();
   }, [userChanges]);
   return (
@@ -138,7 +137,7 @@ function Home() {
             Filtrar
           </button>
         </div>
-        {groupIndicator == "ADMIN" &&(
+        {groupIndicator === "ADMIN" &&(
           <button className="btnEdit" onClick={() => openCreateForm()}>
           Cadastrar
         </button>
